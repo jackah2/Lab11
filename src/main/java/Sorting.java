@@ -29,7 +29,20 @@ public class Sorting {
      * @return the sorted array, or null on failure
      */
     static int[] bubbleSort(final int[] array) {
-        return null;
+        boolean modified = true;
+
+        while (modified) {
+            modified = false;
+
+            for (int ind = 1; ind < array.length; ind++) {
+                if (array[ind] < array[ind - 1]) {
+                    swap(array, ind, ind - 1);
+                    modified = true;
+                }
+            }
+        }
+
+        return array;
     }
 
     /**
@@ -39,7 +52,50 @@ public class Sorting {
      * @return the sorted array, or null on failure
      */
     static int[] selectionSort(final int[] array) {
-        return null;
+        selectionSort(array, 0, array.length);
+        return array;
+    }
+
+    /**
+     * Recursive implementation of selection sort.
+     * @param array Array to sort
+     * @param lo Low bound
+     * @param hi High bound
+     */
+    private static void selectionSort(final int[] array, final int lo, final int hi) {
+        if (lo >= hi) {
+            return;
+        }
+        swap(array, lo, min(array, lo, hi));
+        selectionSort(array, lo + 1, hi);
+    }
+
+    /**
+     * @param array Array to find min
+     * @param lo Low bound
+     * @param hi High bound
+     * @return Index of lowest value between two bounds
+     */
+    static int min(final int[] array, final int lo, final int hi) {
+        int min = lo;
+        for (int ind = lo; ind < hi; ind++) {
+            if (array[ind] < array[min]) {
+                min = ind;
+            }
+        }
+        return min;
+    }
+
+    /**
+     * Swaps two values in an array.
+     * @param array Array to have values swapped
+     * @param x First index
+     * @param y Second index
+     */
+    static void swap(final int[] array, final int x, final int y) {
+        int temp = array[x];
+        array[x] = array[y];
+        array[y] = temp;
     }
 
     /**
@@ -202,5 +258,5 @@ public class Sorting {
         f.setSize(400, 400);
         f.setLocation(200, 200);
         f.setVisible(true);
-    }
+      }
 }
